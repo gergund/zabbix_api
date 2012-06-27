@@ -1,4 +1,31 @@
-#!/usr/bin/python
+# This is a port of the ruby zabbix api found here:
+# http://trac.red-tux.net/browser/ruby/api/zbx_api.rb
+#
+#LGPL 2.1   http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html
+#Zabbix API Python Library.
+#Original Ruby Library is Copyright (C) 2009 Andrew Nelson nelsonab(at)red-tux(dot)net
+#Python Library is Copyright (C) 2009 Brett Lentz brett.lentz(at)gmail(dot)com
+#
+#This library is free software; you can redistribute it and/or
+#modify it under the terms of the GNU Lesser General Public
+#License as published by the Free Software Foundation; either
+#version 2.1 of the License, or (at your option) any later version.
+#
+#This library is distributed in the hope that it will be useful,
+#but WITHOUT ANY WARRANTY; without even the implied warranty of
+#MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+#Lesser General Public License for more details.
+#
+#You should have received a copy of the GNU Lesser General Public
+#License along with this library; if not, write to the Free Software
+#Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+
+
+# NOTES:
+# The API requires zabbix 1.8 or later.
+# Currently, not all of the API is implemented, and some functionality is
+# broken. This is a work in progress.
+
 import base64
 import hashlib
 import logging
@@ -73,8 +100,8 @@ class InvalidProtoError(ZabbixAPIException):
 
 
 class ZabbixAPI(object):
-    __username__ = 'admin'
-    __password__ = 'zabbix'
+    __username__ = ''
+    __password__ = ''
 
     auth = ''
     url = '/api_jsonrpc.php'
@@ -109,7 +136,7 @@ class ZabbixAPI(object):
     # r_query_len: max len query history
     # **kwargs: Data to pass to each api module
 
-    def __init__(self, server='http://127.0.0.1/zabbix', user=None, passwd=None,
+    def __init__(self, server='http://localhost/zabbix', user=None, passwd=None,
                  log_level=logging.WARNING, timeout=10, r_query_len=10, **kwargs):
         """ Create an API object.  """
         self._setuplogging()
@@ -144,6 +171,7 @@ class ZabbixAPI(object):
         self.history = ZabbixAPISubClass(self, dict({"prefix": "history"}, **kwargs))
         self.maintenance = ZabbixAPISubClass(self, dict({"prefix": "maintenance"}, **kwargs))
         self.proxy = ZabbixAPISubClass(self, dict({"prefix": "proxy"}, **kwargs))
+        self.apiinfo = ZabbixAPISubClass(self, dict({"prefix": "apiinfo"}, **kwargs))
         self.id = 0
         self.r_query = deque([], maxlen=r_query_len)
         self.debug(logging.INFO, "url: " + self.url)
