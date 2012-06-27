@@ -2,9 +2,8 @@ zabbix_api
 ==========
 
 zabbix_credentials.py - here are username, password and zabbix URL
-=
+===
 zabbix_api.py - a library from https://github.com/gescheit/scripts/tree/master/zabbix/
-
 ===
 
 zabbix_host_add.py - creates a host
