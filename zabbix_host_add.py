@@ -14,8 +14,6 @@ if (lenarg != 9) and (lenarg != 8):
 	args = parser.parse_args()
 	if lenarg == 1:
 		parser.print_help()
-	print 'lol'
-	print args
 	if args.list:
 		print 'Current log level is',str(loglevel)+',','you may increase it'
 		zbxlist = ZabbixMethods()
