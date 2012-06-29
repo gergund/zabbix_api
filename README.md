@@ -1,6 +1,6 @@
 zabbix_api
 ==========
-zabbix_credentials.py - here are username, password log level and zabbix URL<br/>
+zabbix_credentials.py - here are username, password, log level and zabbix URL<br/>
 zabbix_api.py - a library from https://github.com/gescheit/scripts/tree/master/zabbix/
 <hr>
 zabbix_host_add.py - creates a host<br/>
