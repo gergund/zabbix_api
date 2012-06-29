@@ -6,7 +6,7 @@ zabbix_api.py - a library from https://github.com/gescheit/scripts/tree/master/z
 zabbix_host_add.py - creates a host<br/>
 zabbix_host_del.py - deletes a host.
 
-Run them both with -h or --help key to view usage and available options.
+Run them both without any arguments to view usage and available options.
 
 <hr>
 Useful links:
