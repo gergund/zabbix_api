@@ -44,6 +44,7 @@ else:
 
 	print 'Current log level is',str(loglevel)+',','you may increase it'
 
+	#check if there are macroses
 	if lenarg==9:
 		macros=ZabbixMethods()
 		macroslist=macros.macrosparse(macrosstr,',','=')

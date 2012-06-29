@@ -7,12 +7,14 @@ from zabbix_credentials import *
 bold = "\033[1m"
 reset = "\033[0;0m"
 
+#check if zabbix server is available
 try:
 	zapi = ZabbixAPI(server=server, path="", log_level=loglevel)
 	zapi.login (username,password)
 except:
 	print bold+"\nCould'n connect to zabbix. Please check if URL " + server + " is avaiable"+reset
 	exit(1)
+
 class ZabbixMethods:
 
 	#parsing string with several groups or templates
@@ -39,13 +41,13 @@ class ZabbixMethods:
 		#if only 1 item
 		if i == 0:
 			newstring.insert(0,str)
-	#creating groups and templates string for json
+	#creating groups and templates string for passing to json
 		for i in range(0,count+1):
 			tempstring=tempstring+({itemid:newstring[i]},)
 
 		return tempstring
  
-	#outputs existing hosts, gruops, templates etc
+	#outputs existing hosts, groups, templates
 	def zabbixlist(self):
 		pattern='*'
 		output='extend'
@@ -90,9 +92,9 @@ class ZabbixMethods:
 		if len(hostids) == 1:
 			return hostids[0]['hostid']
 		else:
-			print bold +"\n"+"Nothing founded. Please make sure you specified a correct IP \n"+reset
+			print bold +"\nNothing founded. Please make sure you specified a correct IP \n"+reset
 	
-	#parses string to create
+	#parses string for macros
 	def macrosparse(self, str, char1, char2):
 		count=0
 		ib=0
@@ -114,7 +116,7 @@ class ZabbixMethods:
 
 		return newstring
 
-	#returns macros adding string
+	#returns string for adding macroses
 	def zabbixaddmacros(self, macroslist,hostid):
 		macrosstr=[]
 		i=0
