@@ -9,11 +9,12 @@ if (lenarg != 9) and (lenarg != 8):
 	import argparse
 	parser = argparse.ArgumentParser()
 	parser.add_argument('-l', '--list', help='displays list of available hosts, groups and templates', action='store_true')
-	parser.add_argument('<hostname> <dns> <ip address> <port> <useip 1|0> <groupid1,...,groupidN> <templateid,...,templateidN> <macro1...macroN>', 
+	parser.add_argument('<hostname> <dns> <ip address> <port> <useip 1 or 0. if 0 - DNS will be used> <groupid1,...,groupidN> <templateid1,...,templateidN> <macro1=value1,...,macroN=valueN>', 
 	help = 'Actually creating host. Macro are optional parameters', nargs='?')
 	args = parser.parse_args()
 	if lenarg == 1:
 		parser.print_help()
+		print 'example: ./zabbix_host_add.py hostname hostname.com 10.0.0.1 10050 1 1,2,3 10026,10027 macro1=value1,newmacro=newvalue'
 	if args.list:
 		print 'Current log level is',str(loglevel)+',','you may increase it'
 		zbxlist = ZabbixMethods()
