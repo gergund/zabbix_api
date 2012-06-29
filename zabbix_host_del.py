@@ -7,7 +7,7 @@ loglevel=1
 
 import argparse
 parser = argparse.ArgumentParser()
-parser.add_argument('<ip>', help = 'Delete host by given IP')
+parser.add_argument('<ip>', help = 'Delete host by IP')
 args = parser.parse_args()
 
 ip=sys.argv[1]
