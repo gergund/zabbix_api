@@ -14,7 +14,7 @@ if (lenarg != 9) and (lenarg != 8):
 	args = parser.parse_args()
 	if lenarg == 1:
 		parser.print_help()
-		print 'example: ./zabbix_host_add.py hostname hostname.com 10.0.0.1 10050 1 1,2,3 10026,10027 macro1=value1,newmacro=newvalue'
+		print bold+'\nExample: ./zabbix_host_add.py hostname hostname.com 10.0.0.1 10050 1 1,2,3 10026,10027 macro1=value1,newmacro=newvalue'+reset
 	if args.list:
 		print 'Current log level is',str(loglevel)+',','you may increase it'
 		zbxlist = ZabbixMethods()
