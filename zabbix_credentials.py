@@ -1,5 +1,5 @@
 #credentials for test machine
-server="http://192.168.57.2/zabbix"
+server="http://127.0.0.1/zabbix"
 username="admin"
 password="zabbix"
 
