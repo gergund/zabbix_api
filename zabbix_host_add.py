@@ -26,6 +26,7 @@ else:
 	ip=sys.argv[3]
 	port=sys.argv[4]
 	useip=sys.argv[5]
+	# form strings for transfer to json
 	string = {'host':(host),'ip':(ip),'dns':(dns),'port':(port),'useip':(useip)}
 	string['groups']=tempstr.parsestr(sys.argv[6], 'groupid', ',')
 	string['templates']=tempstr.parsestr(sys.argv[7], 'templateid', ',')
