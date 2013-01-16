@@ -1,5 +1,12 @@
 zabbix_api
 ==========
+
+added v2.0
+scripts for v1.8 will be upated soon.
+
+for v2.0 execute zabbix_host_add.py -h to view help and available options.
+
+==========
 zabbix_credentials.py - here are username, password, log level and zabbix URL<br/>
 zabbix_api.py - a library from https://github.com/gescheit/scripts/tree/master/zabbix/
 <hr>
