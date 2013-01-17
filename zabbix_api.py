@@ -119,6 +119,7 @@ class ZabbixAPI(object):
     host = None
     item = None
     hostgroup = None
+    hostinterface = None
     application = None
     trigger = None
     sysmap = None
@@ -136,7 +137,7 @@ class ZabbixAPI(object):
     # r_query_len: max len query history
     # **kwargs: Data to pass to each api module
 
-    def __init__(self, server='http://localhost/zabbix', user=None, passwd=None,
+    def __init__(self, server='http://localhost/zabbix', user=httpuser, passwd=httppasswd,
                  log_level=logging.WARNING, timeout=10, r_query_len=10, **kwargs):
         """ Create an API object.  """
         self._setuplogging()
@@ -153,6 +154,7 @@ class ZabbixAPI(object):
         self.host = ZabbixAPISubClass(self, dict({"prefix": "host"}, **kwargs))
         self.item = ZabbixAPISubClass(self, dict({"prefix": "item"}, **kwargs))
         self.hostgroup = ZabbixAPISubClass(self, dict({"prefix": "hostgroup"}, **kwargs))
+        self.hostinterface = ZabbixAPISubClass(self, dict({"prefix": "hostinterface"}, **kwargs))
         self.application = ZabbixAPISubClass(self, dict({"prefix": "application"}, **kwargs))
         self.trigger = ZabbixAPISubClass(self, dict({"prefix": "trigger"}, **kwargs))
         self.template = ZabbixAPISubClass(self, dict({"prefix": "template"}, **kwargs))
@@ -166,12 +168,26 @@ class ZabbixAPI(object):
         self.screen = ZabbixAPISubClass(self, dict({"prefix": "screen"}, **kwargs))
         self.script = ZabbixAPISubClass(self, dict({"prefix": "script"}, **kwargs))
         self.usermacro = ZabbixAPISubClass(self, dict({"prefix": "usermacro"}, **kwargs))
-        self.map = ZabbixAPISubClass(self, dict({"prefix": "map"}, **kwargs))
         self.drule = ZabbixAPISubClass(self, dict({"prefix": "drule"}, **kwargs))
         self.history = ZabbixAPISubClass(self, dict({"prefix": "history"}, **kwargs))
         self.maintenance = ZabbixAPISubClass(self, dict({"prefix": "maintenance"}, **kwargs))
         self.proxy = ZabbixAPISubClass(self, dict({"prefix": "proxy"}, **kwargs))
         self.apiinfo = ZabbixAPISubClass(self, dict({"prefix": "apiinfo"}, **kwargs))
+        self.configuration = ZabbixAPISubClass(self, dict({"prefix": "configuration"}, **kwargs))
+        self.dcheck = ZabbixAPISubClass(self, dict({"prefix": "dcheck"}, **kwargs))
+        self.dhost = ZabbixAPISubClass(self, dict({"prefix": "dhost"}, **kwargs))
+        self.discoveryrule = ZabbixAPISubClass(self, dict({"prefix": "discoveryrule"}, **kwargs))
+        self.dservice = ZabbixAPISubClass(self, dict({"prefix": "dservice"}, **kwargs))
+        self.iconmap = ZabbixAPISubClass(self, dict({"prefix": "iconmap"}, **kwargs))
+        self.image = ZabbixAPISubClass(self, dict({"prefix": "image"}, **kwargs))
+        self.mediatype = ZabbixAPISubClass(self, dict({"prefix": "mediatype"}, **kwargs))
+        self.service = ZabbixAPISubClass(self, dict({"prefix": "service"}, **kwargs))
+        self.templatescreen = ZabbixAPISubClass(self, dict({"prefix": "templatescreen"}, **kwargs))
+        self.usermedia = ZabbixAPISubClass(self, dict({"prefix": "usermedia"}, **kwargs))
+        self.hostinterface = ZabbixAPISubClass(self, dict({"prefix": "hostinterface"}, **kwargs))
+        self.triggerprototype = ZabbixAPISubClass(self, dict({"prefix": "triggerprototype"}, **kwargs))
+        self.graphprototype = ZabbixAPISubClass(self, dict({"prefix": "graphprototype"}, **kwargs))
+        self.itemprototype = ZabbixAPISubClass(self, dict({"prefix": "itemprototype"}, **kwargs))
         self.id = 0
         self.r_query = deque([], maxlen=r_query_len)
         self.debug(logging.INFO, "url: " + self.url)
@@ -268,7 +284,11 @@ class ZabbixAPI(object):
             raise ZabbixAPIException("Unknow protocol %s" % self.proto)
 
         urllib2.install_opener(opener)
-        response = opener.open(request, timeout=self.timeout)
+        try:
+            response = opener.open(request, timeout=self.timeout)
+        except Exception as e:
+            self.debug(logging.ERROR, "Site needs HTTP authentication. Error: "+str(e))
+            sys.exit(-1)
         self.debug(logging.INFO, "Response Code: " + str(response.code))
 
         # NOTE: Getting a 412 response code means the headers are not in the
@@ -329,6 +349,9 @@ class ZabbixAPISubClass(ZabbixAPI):
             self.debug(logging.WARNING, "Set %s:%s" % (repr(key), repr(val)))
 
     def __getattr__(self, name):
+        if self.data["prefix"] == "configuration" and name == "import_":  # workaround for "import" method
+            name = "import"
+
         def method(*opts):
             return self.universal("%s.%s" % (self.data["prefix"], name), opts[0])
         return method
