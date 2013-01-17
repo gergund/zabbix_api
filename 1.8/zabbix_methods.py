@@ -4,6 +4,8 @@ import sys
 from zabbix_api import ZabbixAPI
 from zabbix_credentials import *
 
+print sys.path
+
 bold = "\033[1m"
 reset = "\033[0;0m"
 

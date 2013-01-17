@@ -49,20 +49,17 @@ templist=zmeth.parseitems(args)
 # form strings for transfer to json
 string = zmeth.preparestring(templist)
 
-print args
 
-#try:
-#	createdhost=zapi.host.create(string)
-#	if 'hostids' in createdhost.keys(): 
-#		print bold + '\nHost created sucessfuly\n'+reset
-#except:
-#	print bold + 'Server returned error: '+ reset,createdhost['error']['message'], createdhost['error']['data'], traceback.format_exc() 
-#	sys.exit()
-#hostid=createdhost['hostids'][0]	
+try:
+	createdhost=zapi.host.create(string)
+	if 'hostids' in createdhost.keys(): 
+		print bold + '\nHost created sucessfuly\n'+reset
+except:
+	print bold + 'Server returned error: '+ reset,createdhost['error']['message'], createdhost['error']['data'], traceback.format_exc() 
+	sys.exit()
+hostid=createdhost['hostids'][0]	
 
 #print 'Current log level is',str(loglevel)+',','you may increase it'
-
-hostid='10091'
 
 if args['macros']:
 	macroslist = zmeth.parsemacros(args,hostid)
