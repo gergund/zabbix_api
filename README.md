@@ -1,8 +1,10 @@
 zabbix_api
 ==========
 
-added v2.0
-scripts for v1.8 will be upated soon.
+added v2.0<br/>
+some minor features could not work, they will be updated soon.<br/>
+
+scripts for v1.8 will be upated soon.<br/>
 
 for v2.0 execute zabbix_host_add.py -h to view help and available options.
 
