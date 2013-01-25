@@ -31,15 +31,20 @@ list = False
 if args.listhosts:
 	print 'Current log level is',str(loglevel)+',','you may increase it'
 	ids = zmeth.getlist('host')
+	ids = [ x['host'] for x in ids ]
 	list = True
 elif args.listgroups:
 	ids = zmeth.getlist('group')
+	ids = [ x['name'] for x in ids ]
 	list = True
 elif args.listtemplates:
 	ids = zmeth.getlist('template')
+	ids = [ x['name'] for x in ids ]
 	list = True
 	
-if list == True:
+if list:
+	for i in ids:
+		print i
 	sys.exit()
 
 args=args.__dict__
