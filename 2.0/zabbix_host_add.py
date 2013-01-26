@@ -53,7 +53,8 @@ templist=zmeth.parseitems(args)
 
 # form strings for transfer to json
 string = zmeth.preparestring(templist)
-
+string['groups'] = zmeth.PrepareGroups(templist)
+string['templates'] = zmeth.PrepareTemplates(templist)
 
 try:
 	createdhost=zapi.host.create(string)

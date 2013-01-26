@@ -62,11 +62,11 @@ class ZabbixMethods:
 		string['host'] = keyvalues['hostname'][0]
 		string['interfaces'] = [{'type':1, 'main':1, 'useip':keyvalues['useip'][0], 'ip':keyvalues['ip'][0], 'dns':keyvalues['dns'][0], 'port':keyvalues['port'][0]}]
 		string['templates'] = []
-		for i in keyvalues['templates']:
-			string['templates'].append({'templateid':i})
-		string['groups'] = []
-		for i in keyvalues['groups']:
-			string['groups'].append({'groupid':i})
+		#for i in keyvalues['templates']:
+		#	string['templates'].append({'templateid':i})
+		#string['groups'] = []
+		#for i in keyvalues['groups']:
+		#	string['groups'].append({'groupid':i})
 		return string
 
 	def getlist(self, type):
@@ -80,6 +80,91 @@ class ZabbixMethods:
 		elif type == 'template':
 			ids = zapi.template.get({'output':output, "search":{"hostid":pattern}})
 		return ids
+	
+	def PrepareGroups(self, keyvalues):
+		#check if there is at least 1 group specified by name
+		convert=[]
+		nonexist=[]
+		result=[]
+		for i in keyvalues['groups']:
+			if not i.isdigit():
+				convert.append(i)
+		groups={'names':[],'ids':[]}
+		groupslist= self.getlist('group')
+		for i in groupslist:
+			groups['names'].append(i['name'])
+			groups['ids'].append(i["groupid"])
+		if len(convert)>0:
+			for i in convert:
+				if i.lower() in [ x.lower() for x in groups['names'] ]:
+					index=[ x.lower() for x in groups['names'] ].index(i.lower())
+					result.append( { 'groupid' : groups['ids'][index] } ) 
+				else:
+					nonexist.append(i)
+			if len(nonexist) > 0:
+				print bold+"Following groups don't exist in zabbix:"+reset
+				for i in nonexist:
+					print i
+				sys.exit()
+		nonexist=[]
+		for i in [ k for k in keyvalues['groups'] if k not in convert ]:
+			if i not in groups['ids']:
+				nonexist.append(i)
+			result.append({'groupid' : i})
+		if len(nonexist) > 0:
+			print bold+"Following group IDs don't exist in zabbix:"+reset
+			for i in nonexist:
+				print i
+			sys.exit()
+		return result
+
+	def PrepareTemplates(self, keyvalues):
+		#check if there is at least 1 template specified by name
+		convert=[]
+		nonexist=[]
+		result=[]
+		for i in keyvalues['templates']:
+			if not i.isdigit():
+				convert.append(i)
+		templates={'names':[],'ids':[]}
+		templateslist= self.getlist('template')
+		for i in templateslist:
+			templates['names'].append(i['name'])
+			templates['ids'].append(i["templateid"])
+		if len(convert)>0:
+			for i in convert:
+				if i.lower() in [ x.lower() for x in templates['names'] ]:
+					index=[ x.lower() for x in templates['names'] ].index(i.lower())
+					result.append( { 'templateid' : templates['ids'][index] } )
+				else:
+					nonexist.append(i)
+			if len(nonexist) > 0:
+				print bold+"Following templates don't exist in zabbix:"+reset
+				for i in nonexist:
+					print i
+				sys.exit()
+		nonexist=[]
+		for i in [ k for k in keyvalues['templates'] if k not in convert ]:
+			if i not in templates['ids']:
+				nonexist.append(i)
+  		if len(nonexist) > 0:
+			print bold+"Following templates don't exist in zabbix:"+reset
+			for i in nonexist:
+				print i
+			sys.exit()
+		nonexist=[]
+		for i in [ k for k in keyvalues['templates'] if k not in convert ]:
+			if i not in templates['ids']:
+				nonexist.append(i)
+			result.append({'templateid' : i})
+		if len(nonexist) > 0:
+			print bold+"Following template IDs don't exist in zabbix:"+reset
+			for i in nonexist:
+				print i
+			sys.exit()
+		return result
+
+
 
 	#outputs existing hosts, groups, templates
 	def zabbixlist(self):
