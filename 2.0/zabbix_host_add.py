@@ -4,6 +4,8 @@ from zabbix_methods import *
 import getopt
 import traceback
 
+CheckConnection()
+
 import argparse
 parser = argparse.ArgumentParser()
 parser.add_argument('-lh', '--listhosts', help='displays list of available hosts', action='store_true')

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 VERSION=$1
-DIR='zabbix-api'
+DIR='zabbix_api'
 
 echo $VERSION
 

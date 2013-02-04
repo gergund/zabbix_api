@@ -1,19 +1,20 @@
 #!/usr/bin/env python
 
 import sys
-from zabbix_api import ZabbixAPI
+from zabbix_api.zabbix_api import ZabbixAPI
 from zabbix_credentials import *
 
 bold = "\033[1m"
 reset = "\033[0;0m"
 
-#check if zabbix server is available
-try:
-	zapi = ZabbixAPI(server=server, path="", log_level=loglevel)
-	zapi.login (username,password)
-except:
-	print bold+"\nCould'n connect to zabbix. Please check if URL " + server + " is avaiable"+reset
-	exit(1)
+	#check if zabbix server is available
+def CheckConnection():	
+	try:
+		zapi = ZabbixAPI(server=server, path="", log_level=loglevel)
+		zapi.login (username,password)
+	except:
+		print bold+"\nCould'n connect to zabbix. Please check if URL " + server + " is avaiable"+reset
+		exit(1)
 
 class ZabbixMethods:
 	
