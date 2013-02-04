@@ -1,6 +1,13 @@
 zabbix_api
 ==========
 
+Installation:
+
+cd to repo root
+./install.sh <version>
+version: 1.8 or 2.0
+
+==========
 added v2.0<br/>
 some minor features could not work, they will be updated soon.<br/>
 
