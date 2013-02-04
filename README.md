@@ -7,7 +7,7 @@ cd to repo root<br/>
 cd zabbix_api/
 ./install.sh <version>
 ```
-version: 1.8 or 2.0
+version - your zabbix version. Supported: 1.8 for 1.8.* or 2.0 for 2.0.*
 
 ###Usage:
 Install script will install zabbix_api from https://github.com/gescheit/scripts/tree/master/zabbix/ and zabbix_methods.<br/>
