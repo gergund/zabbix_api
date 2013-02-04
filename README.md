@@ -4,9 +4,21 @@
 
 cd to repo root<br/>
 ```bash
-./install.sh <version> <br/>
+cd zabbix_api/
+./install.sh <version>
 ```
 version: 1.8 or 2.0
+
+###Usage:
+Install script will install zabbix_api from https://github.com/gescheit/scripts/tree/master/zabbix/ and zabbix_methods.<br/>
+To use scripts in repo, you need only zabbix_methods module:<br/>
+```python
+from zabbix_api.zabbix_methods import *
+```
+But, if you need zabbix_api for some reasons:
+```python
+from zabbix_api.zabbix_api import ZabbixAPI
+```
 
 ###Changes:
 
