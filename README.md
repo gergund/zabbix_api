@@ -9,6 +9,12 @@ cd zabbix_api/
 ```
 version - your zabbix version. Supported: 1.8 for 1.8.* or 2.0 for 2.0.*
 
+###Setting up credentials:
+Please, edit file: set URL,zabbix login and password and change debug level, if needed.
+```bash
+zabbix_api/<your zabbix version>/zabbix_credentials.py
+```
+
 ###Usage:
 Install script will install zabbix_api from https://github.com/gescheit/scripts/tree/master/zabbix/ and zabbix_methods.<br/>
 To use scripts in repo, you need only zabbix_methods module:<br/>
