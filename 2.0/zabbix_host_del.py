@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from zabbix_methods import *
+from zabbix_api.zabbix_methods import *
 
 lenarg=len(sys.argv)
 loglevel=1
