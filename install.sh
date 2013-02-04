@@ -2,7 +2,7 @@
 
 VERSION=$1
 
-if [ -d zabbix-api ] then
+if [ -d zabbix-api ]; then
 	mkdir zabbix-api
 fi
 
