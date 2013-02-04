@@ -3,7 +3,7 @@
 ##Installation:
 
 cd to repo root<br/>
-./install.sh <version> <br/>
+./install.sh < version > <br/>
 version: 1.8 or 2.0
 
 ###Changes:
