@@ -1,13 +1,13 @@
-zabbix_api
-==========
+#Zabbix API scripts
 
-Installation:
+##Installation:
 
 cd to repo root
 ./install.sh <version>
 version: 1.8 or 2.0
 
-==========
+###Changes:
+
 added v2.0<br/>
 some minor features could not work, they will be updated soon.<br/>
 
@@ -15,7 +15,7 @@ scripts for v1.8 will be upated soon.<br/>
 
 for v2.0 execute zabbix_host_add.py -h to view help and available options.
 
-==========
+<hr>
 zabbix_credentials.py - here are username, password, log level and zabbix URL<br/>
 zabbix_api.py - a library from https://github.com/gescheit/scripts/tree/master/zabbix/
 <hr>
