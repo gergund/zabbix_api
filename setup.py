@@ -9,5 +9,5 @@ setup(name='zabbix-api',
 	author='Grigoriy Netsman',
 	author_email='grigoriy@netsman.org.ua',
 	url='https://github.com/gnetsman/zabbix_api',
-	packages=['zabbix-api']
+	packages=['zabbix_api']
 	)

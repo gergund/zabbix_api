@@ -3,8 +3,6 @@
 VERSION=$1
 DIR='zabbix_api'
 
-echo $VERSION
-
 while [[ ("$VERSION" != "1.8") && ("$VERSION" != "2.0") ]]; do
 	echo 'Please enter version - 1.8 or 2.0'
 	read VERSION
@@ -28,4 +26,4 @@ sudo python setup.py install
 git update-index --assume-unchanged 1.8/zabbix_credentials.py
 git update-index --assume-unchanged 2.0/zabbix_credentials.py
 
-rm -rf zabbix-api/
+rm -rf $DIR
