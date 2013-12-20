@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2.6
 
 from zabbix_api.zabbix_methods import *
 

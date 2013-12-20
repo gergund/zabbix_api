@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2.6
 
 import sys
 from zabbix_api.zabbix_api import ZabbixAPI
@@ -17,7 +17,7 @@ def CheckConnection():
 		exit(1)
 
 class ZabbixMethods:
-	
+
 	def parseitems(self,args):
 		#check for all required parameters
 		reqkeys1=["hostname","dns","ip","port","useip"]
@@ -71,6 +71,10 @@ class ZabbixMethods:
 		return string
 
 	def getlist(self, type):
+
+		zapi = ZabbixAPI(server=server, path="", log_level=loglevel)
+                zapi.login (username,password)
+		
 		pattern='*'
 		output='extend'
 

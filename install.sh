@@ -14,14 +14,14 @@ fi
 
 rm -rf $DIR/*
 
-git submodule init
-git submodule update
+#git submodule init
+#git submodule update
 
 cp $VERSION/zabbix_methods.py $DIR
 cp scripts/zabbix/zabbix_api.py $DIR
 touch $DIR/__init__.py
 
-sudo python setup.py install
+sudo python2.6 setup.py install
 
 git update-index --assume-unchanged 1.8/zabbix_credentials.py
 git update-index --assume-unchanged 2.0/zabbix_credentials.py

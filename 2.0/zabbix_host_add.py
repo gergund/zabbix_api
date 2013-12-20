@@ -1,6 +1,8 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2.6
 
-from zabbix_api.zabbix_methods import *
+from zabbix_methods import *
+from zabbix_api.zabbix_api import ZabbixAPI
+
 import getopt
 import traceback
 
@@ -26,6 +28,9 @@ if len(sys.argv)<2:
 	parser.parse_args(['-h'])
 
 #print bold+'\nExample: ./zabbix_host_add.py hostname:test dns:hostname.com ip:10.0.0.1 port:10050 useip:1 groups:10011,Linux,"test servers" templates:10026,10027,"new template" macros:macro1=value1,newmacro=newvalue'+reset
+
+zapi = ZabbixAPI(server=server, path="", log_level=loglevel)
+zapi.login(username,password)
 
 zmeth=ZabbixMethods()
 
@@ -63,7 +68,7 @@ try:
 	if 'hostids' in createdhost.keys(): 
 		print bold + '\nHost created sucessfuly\n'+reset
 except:
-	print bold + 'Server returned error: '+ reset,createdhost['error']['message'], createdhost['error']['data'], traceback.format_exc() 
+	print bold + 'Server returned error: '+ reset, createdhost['error']['message'], createdhost['error']['data'], traceback.format_exc() 
 	sys.exit()
 hostid=createdhost['hostids'][0]	
 
