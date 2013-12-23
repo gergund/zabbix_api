@@ -213,6 +213,10 @@ class ZabbixMethods:
 
 	#search host by IP
 	def zabbixhostsearch(self, ip):
+
+		zapi = ZabbixAPI(server=server, path="", log_level=loglevel)
+                zapi.login (username,password)
+
 		hostids=zapi.host.get({"output":"extend", 'filter':{'ip':ip}})
 		if len(hostids) == 1:
 			return hostids[0]['hostid']

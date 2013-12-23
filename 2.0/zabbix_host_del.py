@@ -1,6 +1,6 @@
 #!/usr/bin/env python2.6
 
-from zabbix_api.zabbix_methods import *
+from zabbix_methods import *
 
 lenarg=len(sys.argv)
 loglevel=1
@@ -11,7 +11,12 @@ parser.add_argument('<ip>', help = 'Delete host by IP')
 args = parser.parse_args()
 
 ip=sys.argv[1]
+
+zapi = ZabbixAPI(server=server, path="", log_level=loglevel)
+zapi.login(username,password)
+
 zbxsearch=ZabbixMethods()
+
 hostid=zbxsearch.zabbixhostsearch(ip) 
 result=zapi.host.delete({"hostid":hostid})
 expect={'hostids':[hostid]}
